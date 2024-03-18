@@ -31,6 +31,8 @@ module Apartment
     end
 
     def self.create_tenant(tenant_name)
+      return if Apartment.connection.schema_exists?(tenant_name)
+
       puts("Creating #{tenant_name} tenant")
       Apartment::Tenant.create(tenant_name)
     rescue Apartment::TenantExists => e
